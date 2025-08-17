@@ -5,7 +5,8 @@
 ## Setup Instructions
 The project is split into two parts: the backend and the frontend. Follow these steps to set up each one.
 
-###**1. Backend Setup** 
+###1. Backend Setup
+
 Navigate into the backend directory.
 
 **cd backend**
@@ -15,12 +16,12 @@ Initialize a new Node.js project and install the necessary packages.
 **npm init -y
 npm i express mongoose dotenv nodemon jsonwebtoken bcryptjs cookie-parser cloudinary multer cors**
 
-Open the package.json file and update the scripts section and add the type field.
+Open the `package.json` file and update the `scripts` section and add the `type` field.
 
-**"scripts": {
+```"scripts": {
   "dev": "nodemon index.js"
 },
-"type": "module"**
+"type": "module"
 
 **2. MongoDB Connection**
 To connect your backend to the database, follow these steps:
