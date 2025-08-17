@@ -5,7 +5,7 @@
 ## Setup Instructions
 The project is split into two parts: the backend and the frontend. Follow these steps to set up each one.
 
-### 1. Backend Setup
+### Backend Setup
 
 Navigate into the backend directory.
 
@@ -14,13 +14,13 @@ Navigate into the backend directory.
 Initialize a new Node.js project and install the necessary packages.
 
 `npm init -y
-npm i express mongoose dotenv nodemon jsonwebtoken bcryptjs cookie-parser cloudinary multer cors`
+<br>npm i express mongoose dotenv nodemon jsonwebtoken bcryptjs cookie-parser cloudinary multer cors`
 
 Open the `package.json` file and update the `scripts` section and add the `type` field.
 
 `"scripts": {
   "dev": "nodemon index.js"
-},
+}, <br>
 "type": "module"`
 
 2. MongoDB Connection
@@ -44,7 +44,32 @@ Next, go to Security > Network Access in MongoDB Atlas.
 Delete any existing IP addresses.
 
 Add a new IP address, select "Allow Access from Anywhere", and click Confirm. You're now good to go!
-  
+
+### Frontend Setup
+
+Open a new powershell and `cd frontend`
+
+Here you need to install the following packages:
+ `npm create vite@latest`
+
+For your project name just put a `.` your framework is `react` and your variant is `javascript`. 
+and then:
+`npm i`
+
+Now for installing tailwindcss we are using the steps mentioned at https://tailwindcss.com/docs/installation/using-vite 
+ `npm install tailwindcss @tailwindcss/vite`
+
+Next install:
+ `npm i react-router-dom react-icons axios`
+
+ 
+
+
+
+
+
+
+   
 
 
 
