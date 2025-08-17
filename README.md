@@ -5,7 +5,7 @@
 ## Setup Instructions
 The project is split into two parts: the backend and the frontend. Follow these steps to set up each one.
 
-###1. Backend Setup
+### 1. Backend Setup
 
 Navigate into the backend directory.
 
