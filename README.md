@@ -13,17 +13,17 @@ Navigate into the backend directory.
 
 Initialize a new Node.js project and install the necessary packages.
 
-**npm init -y
-npm i express mongoose dotenv nodemon jsonwebtoken bcryptjs cookie-parser cloudinary multer cors**
+```npm init -y
+npm i express mongoose dotenv nodemon jsonwebtoken bcryptjs cookie-parser cloudinary multer cors**```
 
 Open the `package.json` file and update the `scripts` section and add the `type` field.
 
 ```"scripts": {
   "dev": "nodemon index.js"
 },
-"type": "module"
+"type": "module"```
 
-**2. MongoDB Connection**
+2. MongoDB Connection
 To connect your backend to the database, follow these steps:
 
 Go to your MongoDB Atlas account, sign in or sign up, and create a new project.
