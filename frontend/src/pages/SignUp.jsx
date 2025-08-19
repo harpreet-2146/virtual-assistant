@@ -14,6 +14,7 @@ function SignUp () {
   const [password,setPassword]=useState("")
   const {serverUrl}=useContext(userDataContext)
   const [err,setErr]=useState("")
+    const [loading,setLoading]=useState(false)
   
  // Inside your handleSignUp function
 const handleSignUp = async (e) => {
@@ -25,10 +26,12 @@ const handleSignUp = async (e) => {
       { name, email, password },
       { withCredentials: true }
     );
+    setLoading(false)
     console.log("Signup successful:", result.data); // only log the user data
     // redirect after signup
     navigate("/signin"); 
   } catch (error) {
+    setLoading(false)
     setErr(error.response.data.message)
     if (error.response) {
       console.error("Signup failed:", error.response.data.message);
@@ -58,9 +61,7 @@ const handleSignUp = async (e) => {
             {err.length>0 && <p className='text-red-500 font-bold text-[20px]'>
               *{err}
               </p>}
-            <button type="submit" className='min-w-[150px] h-[60px] bg-white rounded-2xl text-pink-600 mt-[30px] text-[19px] justify-center font-bold'>
-  Sign Up
-</button>
+            <button type="submit" className='min-w-[150px] h-[60px] bg-white rounded-2xl text-pink-600 mt-[30px] text-[19px] justify-center font-bold'  disabled={loading}>{loading?"loading...":"Sign Up"}</button>
 
             <p className='text-[white] text-[18px]' >Already have an account? <span className='text-pink-400 cursor-pointer' onClick={()=>navigate("/signin")}>Sign In</span></p>
           </form>

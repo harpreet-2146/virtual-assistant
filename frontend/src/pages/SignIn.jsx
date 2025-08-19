@@ -13,22 +13,25 @@ function SignIn () {
   const [password,setPassword]=useState("")
   const {serverUrl}=useContext(userDataContext)
   const [err,setErr]=useState("")
-  
+  const [loading,setLoading]=useState(false)
  // Inside your handleSignIn function
 const handleSignIn = async (e) => {
   e.preventDefault();
   setErr("")
+  setLoading(true)
   try {
     let result = await axios.post(
       `${serverUrl}/api/auth/SignIn`,
       { email, password },
       { withCredentials: true }
     );
+    setLoading(false)
     console.log("SignIn successful:", result.data); // only log the user data
     // redirect after SignIn
     navigate("/signin"); 
   } catch (error) {
     setErr(error.response.data.message)
+    setLoading(false)
     if (error.response) {
       console.error("SignIn failed:", error.response.data.message);
     } else if (error.request) {
@@ -56,11 +59,8 @@ const handleSignIn = async (e) => {
             {err.length>0 && <p className='text-red-500 font-bold text-[20px]'>
               *{err}
               </p>}
-            <button type="submit" className='min-w-[150px] h-[60px] bg-white rounded-2xl text-pink-600 mt-[30px] text-[19px] justify-center font-bold'>
-  Sign In
-</button>
-
-            <p className='text-[white] text-[18px]' >Want to create a new account? <span className='text-pink-400 cursor-pointer' onClick={()=>navigate("/signup")}>Sign Up</span></p>
+            <button type="submit" className='min-w-[150px] h-[60px] bg-white rounded-2xl text-pink-600 mt-[30px] text-[19px] justify-center font-bold' disabled={loading}>{loading?"loading...":"Sign In"}</button>
+           <p className='text-[white] text-[18px]' >Want to create a new account? <span className='text-pink-400 cursor-pointer' onClick={()=>navigate("/signup")}>Sign Up</span></p>
           </form>
         </div>
   )
