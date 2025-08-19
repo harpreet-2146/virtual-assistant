@@ -13,10 +13,12 @@ function SignUp () {
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
   const {serverUrl}=useContext(userDataContext)
+  const [err,setErr]=useState("")
   
  // Inside your handleSignUp function
 const handleSignUp = async (e) => {
   e.preventDefault();
+  setErr("")
   try {
     let result = await axios.post(
       `${serverUrl}/api/auth/signup`,
@@ -27,6 +29,7 @@ const handleSignUp = async (e) => {
     // redirect after signup
     navigate("/signin"); 
   } catch (error) {
+    setErr(error.response.data.message)
     if (error.response) {
       console.error("Signup failed:", error.response.data.message);
     } else if (error.request) {
@@ -52,6 +55,9 @@ const handleSignUp = async (e) => {
               {!showPassword && <FaEye className='absolute top-[18px] right-[20px] text-[white] w-[25px] h-[25px] cursor-pointer ' onClick={()=>setShowPassword(true)} />}
               {showPassword && <FaRegEyeSlash className='absolute top-[18px] right-[20px] text-[white] w-[25px] h-[25px] cursor-pointer ' onClick={()=>setShowPassword(false)} />}
             </div>
+            {err.length>0 && <p className='text-red-500 font-bold text-[20px]'>
+              *{err}
+              </p>}
             <button type="submit" className='min-w-[150px] h-[60px] bg-white rounded-2xl text-pink-600 mt-[30px] text-[19px] justify-center font-bold'>
   Sign Up
 </button>
