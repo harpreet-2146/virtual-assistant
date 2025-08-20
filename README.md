@@ -45,6 +45,18 @@ Delete any existing IP addresses.
 
 Add a new IP address, select "Allow Access from Anywhere", and click Confirm. You're now good to go!
 
+Cloudinary setup:
+
+go to https://cloudinary.com/users/register_free
+setup your account
+go to api keys> generate new api key
+you can change the key name if you want.
+its clearly mentioned api key, api secret and cloud name
+the data given you need to put that up in your `.env` file
+``CLOUDINARY_CLOUD_NAME="cloud_name"
+CLOUDINARY_API_KEY="api_key"
+CLOUDINARY_API_SECRET="api_secret"``
+
 ### Frontend Setup
 
 Open a new powershell and `cd frontend`
@@ -61,6 +73,8 @@ Now for installing tailwindcss we are using the steps mentioned at https://tailw
 
 Next install:
  `npm i react-router-dom react-icons axios`
+
+ 
 
  
 
