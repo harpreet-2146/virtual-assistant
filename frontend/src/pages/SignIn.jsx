@@ -11,7 +11,7 @@ function SignIn () {
   const navigate=useNavigate()
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
-  const {serverUrl}=useContext(userDataContext)
+  const {serverUrl,userData,setUserData}=useContext(userDataContext)
   const [err,setErr]=useState("")
   const [loading,setLoading]=useState(false)
  // Inside your handleSignIn function
@@ -26,10 +26,12 @@ const handleSignIn = async (e) => {
       { withCredentials: true }
     );
     setLoading(false)
+    setUserData(result.data)
     console.log("SignIn successful:", result.data); // only log the user data
     // redirect after SignIn
     navigate("/signin"); 
   } catch (error) {
+    setUserData(null)
     setErr(error.response.data.message)
     setLoading(false)
     if (error.response) {

@@ -12,7 +12,7 @@ function SignUp () {
   const [name,setName]=useState("")
   const [email,setEmail]=useState("")
   const [password,setPassword]=useState("")
-  const {serverUrl}=useContext(userDataContext)
+  const {serverUrl,userData,setUserData}=useContext(userDataContext)
   const [err,setErr]=useState("")
     const [loading,setLoading]=useState(false)
   
@@ -26,12 +26,14 @@ const handleSignUp = async (e) => {
       { name, email, password },
       { withCredentials: true }
     );
+    setUserData(result.data)
     setLoading(false)
     console.log("Signup successful:", result.data); // only log the user data
     // redirect after signup
     navigate("/signin"); 
   } catch (error) {
     setLoading(false)
+    setUserData(null)
     setErr(error.response.data.message)
     if (error.response) {
       console.error("Signup failed:", error.response.data.message);
