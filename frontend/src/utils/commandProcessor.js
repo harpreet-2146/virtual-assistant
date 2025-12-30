@@ -18,14 +18,14 @@ const websites = {
     claude: 'https://claude.ai',
 }
 
-export const processCommand = (command) => {
+export const processCommand = (command, assistantName = 'Luna') => {
     const cmd = command.toLowerCase().trim()
 
     // Greetings
     if (cmd.includes('hello') || cmd.includes('hi') || cmd.includes('hey')) {
         return {
             action: 'speak',
-            response: getGreeting()
+            response: getGreeting(assistantName)
         }
     }
 
@@ -145,7 +145,7 @@ export const processCommand = (command) => {
     if (cmd.includes('who are you') || cmd.includes('what are you') || cmd.includes('your name')) {
         return {
             action: 'speak',
-            response: "I'm your virtual assistant! I can help you open websites, search the web, and tell you the time or date. Just ask!"
+            response: `I'm ${assistantName}, your virtual assistant! I can help you open websites, search the web, and tell you the time or date. Just ask!`
         }
     }
 
@@ -153,7 +153,7 @@ export const processCommand = (command) => {
     if (cmd.includes('what can you do') || cmd.includes('help') || cmd.includes('commands')) {
         return {
             action: 'speak',
-            response: "I can open websites like YouTube, Google, GitHub, and more. I can search Google or YouTube for you. I can also tell you the current time and date. Try saying 'Open YouTube' or 'Search for cute cats'!"
+            response: "I can open websites like YouTube, Google, GitHub, and more. I can search Google or YouTube for you. I can also tell you the current time and date. Try saying 'Open YouTube' or 'Search for something'!"
         }
     }
 
@@ -164,7 +164,7 @@ export const processCommand = (command) => {
     }
 }
 
-const getGreeting = () => {
+const getGreeting = (assistantName) => {
     const hour = new Date().getHours()
     let timeGreeting = ''
 
@@ -177,7 +177,7 @@ const getGreeting = () => {
     }
 
     const responses = [
-        `${timeGreeting}! How can I help you today?`,
+        `${timeGreeting}! I'm ${assistantName}. How can I help you today?`,
         `${timeGreeting}! What would you like me to do?`,
         `Hey there! ${timeGreeting}! I'm ready to assist you.`,
     ]

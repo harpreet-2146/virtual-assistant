@@ -1,38 +1,26 @@
-import React, { useContext, useState, useRef, useEffect } from 'react'
-import { userDataContext } from '../context/userContext'
+import React, { useState, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
 import { IoArrowBack } from "react-icons/io5"
 import { FiCamera } from "react-icons/fi"
+import bg from "../assets/authBG.jpg"
 
 function Customize() {
-    const { userData, setUserData, serverUrl } = useContext(userDataContext)
     const navigate = useNavigate()
     const [assistantName, setAssistantName] = useState("")
     const [imagePreview, setImagePreview] = useState(null)
-    const [imageFile, setImageFile] = useState(null)
-    const [loading, setLoading] = useState(false)
     const [success, setSuccess] = useState("")
-    const [err, setErr] = useState("")
     const fileInputRef = useRef(null)
 
     useEffect(() => {
-        if (userData) {
-            setAssistantName(userData.assistantName || "")
-            setImagePreview(userData.assistantImage || null)
-        }
-    }, [userData])
-
-    useEffect(() => {
-        if (!userData) {
-            navigate("/signin")
-        }
-    }, [userData, navigate])
+        const savedName = localStorage.getItem('assistantName')
+        const savedImage = localStorage.getItem('assistantImage')
+        if (savedName) setAssistantName(savedName)
+        if (savedImage) setImagePreview(savedImage)
+    }, [])
 
     const handleImageChange = (e) => {
         const file = e.target.files[0]
         if (file) {
-            setImageFile(file)
             const reader = new FileReader()
             reader.onloadend = () => {
                 setImagePreview(reader.result)
@@ -41,49 +29,30 @@ function Customize() {
         }
     }
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault()
-        setLoading(true)
-        setErr("")
-        setSuccess("")
-
-        try {
-            const formData = new FormData()
-            formData.append("assistantName", assistantName)
-            if (imageFile) {
-                formData.append("assistantImage", imageFile)
-            }
-
-            const result = await axios.post(
-                `${serverUrl}/api/assistant/customize`,
-                formData,
-                {
-                    withCredentials: true,
-                    headers: {
-                        "Content-Type": "multipart/form-data"
-                    }
-                }
-            )
-
-            setUserData(result.data)
-            setSuccess("Assistant customized successfully!")
-            setLoading(false)
-
-            setTimeout(() => {
-                navigate("/")
-            }, 1500)
-
-        } catch (error) {
-            setLoading(false)
-            setErr(error.response?.data?.message || "Something went wrong")
+        
+        // Save to localStorage
+        if (assistantName) {
+            localStorage.setItem('assistantName', assistantName)
         }
+        if (imagePreview) {
+            localStorage.setItem('assistantImage', imagePreview)
+        }
+
+        setSuccess("Assistant customized successfully!")
+
+        setTimeout(() => {
+            navigate("/")
+        }, 1500)
     }
 
-    if (!userData) return null
-
     return (
-        <div className='w-full min-h-[100vh] bg-gradient-to-br from-purple-900 via-indigo-900 to-pink-800 flex justify-center items-center p-[20px]'>
-            <div className='w-full max-w-[500px] bg-black/30 backdrop-blur-lg rounded-[30px] p-[40px]'>
+        <div
+            className='w-full min-h-[100vh] bg-cover flex justify-center items-center p-[20px]'
+            style={{ backgroundImage: `url(${bg})` }}
+        >
+            <div className='w-[90%] max-w-[500px] bg-[#0000f700] backdrop-blur shadow-lg shadow-pink-200 rounded-[30px] p-[40px]'>
                 {/* Back Button */}
                 <button
                     onClick={() => navigate("/")}
@@ -94,7 +63,7 @@ function Customize() {
                 </button>
 
                 <h1 className='text-white text-[28px] font-semibold mb-[10px]'>
-                    Customize Your Assistant
+                    Customize Your <span className='text-pink-200'>Assistant</span>
                 </h1>
                 <p className='text-white/60 mb-[30px]'>
                     Give your assistant a name and avatar
@@ -133,14 +102,11 @@ function Customize() {
                             placeholder='e.g., Luna, Nova, Atlas...'
                             value={assistantName}
                             onChange={(e) => setAssistantName(e.target.value)}
-                            className='w-full h-[55px] bg-white/10 border border-white/30 rounded-full px-[20px] text-white placeholder-white/40 outline-none focus:border-pink-400 transition-colors'
+                            className='w-full h-[55px] bg-transparent border-2 border-white/50 rounded-full px-[20px] text-white placeholder-pink-200/50 outline-none focus:border-pink-400 transition-colors'
                         />
                     </div>
 
-                    {/* Error/Success Messages */}
-                    {err && (
-                        <p className='text-red-400 text-center'>*{err}</p>
-                    )}
+                    {/* Success Message */}
                     {success && (
                         <p className='text-green-400 text-center'>{success}</p>
                     )}
@@ -148,10 +114,9 @@ function Customize() {
                     {/* Submit Button */}
                     <button
                         type="submit"
-                        disabled={loading}
-                        className='w-full h-[55px] bg-pink-500 rounded-full text-white font-semibold hover:bg-pink-600 transition-colors disabled:opacity-50'
+                        className='w-full h-[55px] bg-white rounded-full text-pink-600 font-bold text-[18px] hover:bg-pink-100 transition-colors'
                     >
-                        {loading ? "Saving..." : "Save Changes"}
+                        Save Changes
                     </button>
                 </form>
             </div>
