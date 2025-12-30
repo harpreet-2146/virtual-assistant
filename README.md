@@ -4,7 +4,7 @@
 > 
 > *"Opening YouTube for you~"* 🎵
 
-A cute voice-controlled assistant that actually listens to you (unlike some people 😤)
+A cute voice-controlled assistant that actually listens to you
 
 ![Made with Love](https://img.shields.io/badge/Made%20with-Love-pink?style=for-the-badge&logo=heart)
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
@@ -112,9 +112,9 @@ Then open `http://localhost:5173` and say hi! 👋
 
 ## 🎀 Made By
 
-**Preeti** 💖
+**Harpreet** 💖
 
-*Ending 2024 with 500 commits and this cute little assistant~*
+*Ending 2025 with 500 commits and this cute little assistant~*
 
 ---
 
